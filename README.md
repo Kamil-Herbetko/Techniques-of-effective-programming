@@ -1,2 +1,2 @@
 # Techniques-of-effective-programming
-Solutions to list from TEP subject.
+Solutions to lists from TEP subject.
