@@ -25,7 +25,7 @@ int main() {
 	CTable* pcTableOfTables = new CTable[3];
 	delete[] pcTableOfTables;
 	
-	/*
+	
 	CTable c_tab_0("table 0", 8), c_tab_1("table 1", 8);
 	c_tab_0.bSetNewSize(6);
 	c_tab_1.bSetNewSize(4);
@@ -43,6 +43,6 @@ int main() {
 	c_tab_0.vPrint();
 	c_tab_1.vPrint();
 
-	*/
+	
 	return 0;
 }
