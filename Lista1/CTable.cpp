@@ -24,10 +24,13 @@ bool CTable::bSetNewSize(int iTableLen) {
         return false;
     }
 
+    int* piTableHelper = new int[iTableLen];
+    memcpy(piTableHelper, pi_Table, std::min(iTableLen, i_TableLen) * sizeof(int));
+
     i_TableLen = iTableLen;
 
     delete[] pi_Table;
-    pi_Table = new int[iTableLen];
+    *pi_Table = *piTableHelper;
     return true;
 }
 
@@ -81,8 +84,13 @@ void CTable::operator=(CTable& pcOther) {
     i_TableLen = pcOther.i_TableLen;
 }
 
-int CTable::operator+(CTable& pcOther) {
 
+
+int* CTable::operator+(CTable& pcOther) {
+    int* piConcatTable = new int [i_TableLen + pcOther.i_TableLen];
+    memcpy(piConcatTable, pi_Table, i_TableLen * sizeof(int));
+    memcpy(piConcatTable + i_TableLen, pcOther.pi_Table, pcOther.i_TableLen * sizeof(int));
+    return piConcatTable;
 }
 
 void v_mod_tab(CTable* pcTab, int iNewSize) {
