@@ -22,7 +22,7 @@ public:
     CTable* pcClone();
 
     void operator=(CTable& pcOther);
-    int* operator+(CTable& pcOther);
+    CTable operator+(CTable& pcOther);
 
 private:
     std::string s_name;
