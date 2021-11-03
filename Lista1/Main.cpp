@@ -43,6 +43,7 @@ int main() {
 	c_tab_0.vPrint();
 	c_tab_1.vPrint();
 
+	(c_tab_0 + c_tab_1).vPrint();
 	
 	return 0;
 }
