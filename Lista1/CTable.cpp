@@ -60,12 +60,12 @@ CTable* CTable::pcClone() {
     return pc_Clone;
 }
 
-/*
+
 CTable::~CTable() {
     delete[] pi_Table;
     std::cout << "usuwam: " << s_name << std::endl;
 }
-*/
+
 
 std::string CTable::sGetName() {
     return s_name;
@@ -79,9 +79,12 @@ int* CTable::piGetTable() {
     return pi_Table;
 }
 
-void CTable::operator=(CTable& pcOther) {
-    pi_Table = pcOther.pi_Table;
+void CTable::operator=(const CTable& pcOther) {
+    delete[] pi_Table;
+    s_name = pcOther.s_name;
     i_TableLen = pcOther.i_TableLen;
+    pi_Table = new int[i_TableLen];
+    memcpy(pi_Table, pcOther.pi_Table, i_TableLen * sizeof(int));
 }
 
 CTable CTable::operator+(CTable& pcOther) {
@@ -90,6 +93,11 @@ CTable CTable::operator+(CTable& pcOther) {
     memcpy(cTableConcat.pi_Table, pi_Table, i_TableLen * sizeof(int));
     memcpy(cTableConcat.pi_Table + i_TableLen, pcOther.pi_Table, pcOther.i_TableLen * sizeof(int));
     return cTableConcat;
+}
+
+void CTable::operator++(int) {
+    bSetNewSize(i_TableLen + 1);
+    vSetValueAt(i_TableLen - 1, PP_ADDED_VALUE);
 }
 
 void v_mod_tab(CTable* pcTab, int iNewSize) {
