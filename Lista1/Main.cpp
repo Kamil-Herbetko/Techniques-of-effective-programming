@@ -44,6 +44,20 @@ int main() {
 	c_tab_1.vPrint();
 
 	(c_tab_0 + c_tab_1).vPrint();
+
+	CTable c_tab_2("table 2", 6);
+
+	for (int ii = 0; ii < 6; ii++) {
+		c_tab_2.vSetValueAt(ii, ii);
+	}
+
+	c_tab_2.vPrint();
+
+	c_tab_2++;
+
+	c_tab_2.vPrint();
+
+	c_tab_2 = c_tab_0 + c_tab_1;
 	
 	return 0;
 }
