@@ -35,7 +35,7 @@ bool CTable::bSetNewSize(int iTableLen) {
 }
 
 void CTable::vSetValueAt(int iOffset, int iNewVal) {
-    if (iOffset < i_TableLen) {
+    if ( 0 <= iOffset && iOffset < i_TableLen) {
         pi_Table[iOffset] = iNewVal;
     }
 }
