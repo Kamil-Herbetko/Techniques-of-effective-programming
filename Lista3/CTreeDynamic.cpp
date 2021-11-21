@@ -14,12 +14,12 @@ void CTreeDynamic::vPrintTree() {
 
 CNodeDynamic::~CNodeDynamic() {
 	for (int ii = 0; ii < v_children.size(); ii++) {
-
+		delete v_children[ii];
 	}
 }
 
 void CNodeDynamic::vAddNewChild() {
-
+	CNodeDynamic* pcNodeDynamic = new CNodeDynamic();
 }
 
 CTreeDynamic* CNodeDynamic::pcGetChild(int iChildOffset) {
