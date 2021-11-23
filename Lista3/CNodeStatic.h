@@ -17,6 +17,8 @@ public:
 	void vPrintAllBelow();
 	void vPrintUp();
 
+	bool bRecursiveMove(CNodeStatic* pcDestinationParent);
+
 private:
 	std::vector<CNodeStatic> v_children;
 	CNodeStatic* pc_parent_node;
