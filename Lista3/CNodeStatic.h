@@ -11,13 +11,17 @@ public:
 
 	int iGetChildrenNumber() { return(v_children.size()); };
 	void vAddNewChild();
+	bool bRemoveChild(CNodeStatic* node);
 	CNodeStatic* pcGetChild(int iChildOffset);
+	CNodeStatic* pcGetParent() { return pc_parent_node; };
 
 	void vPrint() { std::cout << " " << i_val; };
 	void vPrintAllBelow();
 	void vPrintUp();
 
 	bool bRecursiveMove(CNodeStatic* pcDestinationParent);
+
+	
 
 private:
 	std::vector<CNodeStatic> v_children;

@@ -12,16 +12,31 @@ void CNodeStatic::vAddNewChild() {
 }
 
 bool CNodeStatic::bRecursiveMove(CNodeStatic* pcDestinationParent) {
-	pcDestinationParent->vAddNewChild();
-	std::vector<CNodeStatic> vChildren = pcDestinationParent->v_children;
-	CNodeStatic cNewNode = vChildren.at(vChildren.size() - 1);
-	cNewNode.i_val = i_val;
+	if (pcDestinationParent != NULL) {
+		pcDestinationParent->vAddNewChild();
+		std::vector<CNodeStatic> vChildren = pcDestinationParent->v_children;
+		CNodeStatic cNewNode = vChildren.at(vChildren.size() - 1);
+		cNewNode.i_val = i_val;
 
+		for (int ii = 0; ii < v_children.size(); ii++) {
+			(v_children.at(ii)).bRecursiveMove(&cNewNode);
+		}
+
+		return true;
+	}
+	
+	return false;
+}
+
+bool CNodeStatic::bRemoveChild(CNodeStatic* node) {
 	for (int ii = 0; ii < v_children.size(); ii++) {
-		(v_children.at(ii)).bRecursiveMove(&cNewNode);
+		if (&v_children.at(ii) == node) {
+			v_children.erase(v_children.begin() + ii);
+			return true;
+		}
 	}
 
-	return true;
+	return false;
 }
 
 CNodeStatic* CNodeStatic::pcGetChild(int iChildOffset) {
