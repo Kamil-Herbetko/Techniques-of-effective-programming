@@ -8,10 +8,13 @@ class CNodeDynamic {
 public:
 	CNodeDynamic() { i_val = 0; pc_parent_node = NULL; };
 	~CNodeDynamic();
+
 	void vSetValue(int iNewVal) { i_val = iNewVal; };
 	int iGetChildrenNumber() { return(v_children.size()); };
 	void vAddNewChild();
 	CTreeDynamic* pcGetChild(int iChildOffset);
+	void vMoveHelper(CNodeDynamic* pcNewParent);
+
 	void vPrint() { std::cout << " " << i_val; };
 	void vPrintAllBelow();
 private:
@@ -24,8 +27,12 @@ class CTreeDynamic {
 public:
 	CTreeDynamic();
 	~CTreeDynamic();
+
 	CNodeDynamic* pcGetRoot() { return(pc_root); }
+	bool bMoveSubtree(CNodeDynamic* pcParentNode, CNodeDynamic* pcNewChildNode);
+
 	void vPrintTree();
 private:
 	CNodeDynamic* pc_root;
 };
+

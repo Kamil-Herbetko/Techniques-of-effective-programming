@@ -8,6 +8,16 @@ CTreeDynamic::~CTreeDynamic() {
 	delete pc_root;
 }
 
+bool CTreeDynamic::bMoveSubtree(CNodeDynamic* pcParentNode, CNodeDynamic* pcNewChildNode)
+{
+	if ((pcParentNode != NULL) && (pcNewChildNode != NULL)) {
+		pcNewChildNode->vMoveHelper(pcParentNode);
+		return true;
+	}
+
+	return false;
+}
+
 void CTreeDynamic::vPrintTree() {
 	pc_root->vPrintAllBelow();
 }
@@ -33,6 +43,22 @@ CTreeDynamic* CNodeDynamic::pcGetChild(int iChildOffset) {
 	}
 
 	return NULL;
+}
+
+void CNodeDynamic::vMoveHelper(CNodeDynamic* pcNewParent) {
+	(pcNewParent->v_children).push_back(this);
+	if (pc_parent_node != NULL) {
+		std::vector<CNodeDynamic*> vCurrentParentChildren = pc_parent_node->v_children;
+
+			for (int ii = 0; ii < vCurrentParentChildren.size(); ii++) {
+				if (vCurrentParentChildren.at(ii) == this) {
+					vCurrentParentChildren.erase(vCurrentParentChildren.begin() + ii);
+				}
+			}
+	}
+
+	pc_parent_node = pcNewParent;
+	
 }
 
 void CNodeDynamic::vPrintAllBelow() {
