@@ -14,3 +14,5 @@ public:
 private:
 	CNodeStatic c_root;
 };
+
+void v_tree_move_test();
