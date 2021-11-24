@@ -19,7 +19,7 @@ public:
 	void vPrintAllBelow();
 	void vPrintUp();
 
-	bool bRecursiveMove(CNodeStatic* pcDestinationParent);
+	void bRecursiveMove(CNodeStatic* pcDestinationParent);
 
 	
 
