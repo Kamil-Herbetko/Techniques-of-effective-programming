@@ -31,6 +31,8 @@ public:
 	CNodeDynamic* pcGetRoot() { return(pc_root); }
 	bool bMoveSubtree(CNodeDynamic* pcParentNode, CNodeDynamic* pcNewChildNode);
 
+	void vSetRoot(CNodeDynamic* pcNewRootNode);
+
 	void vPrintTree();
 private:
 	CNodeDynamic* pc_root;

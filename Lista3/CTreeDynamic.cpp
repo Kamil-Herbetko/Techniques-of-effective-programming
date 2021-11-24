@@ -1,7 +1,7 @@
 #include "CTreeDynamic.h"
 
 CTreeDynamic::CTreeDynamic() {
-	pc_root = NULL;
+	pc_root = new CNodeDynamic();
 }
 
 CTreeDynamic::~CTreeDynamic() {
@@ -16,6 +16,10 @@ bool CTreeDynamic::bMoveSubtree(CNodeDynamic* pcParentNode, CNodeDynamic* pcNewC
 	}
 
 	return false;
+}
+
+void CTreeDynamic::vSetRoot(CNodeDynamic* pcNewRootNode) {
+	pc_root = pcNewRootNode;
 }
 
 void CTreeDynamic::vPrintTree() {
@@ -37,8 +41,7 @@ void CNodeDynamic::vAddNewChild() {
 CTreeDynamic* CNodeDynamic::pcGetChild(int iChildOffset) {
 	if ((0 <= iChildOffset) && (iChildOffset < v_children.size())) {
 		CTreeDynamic* pcTreeDynamic = new CTreeDynamic();
-		CNodeDynamic* pcRoot = pcTreeDynamic->pcGetRoot();
-		pcRoot = v_children.at(iChildOffset);
+		pcTreeDynamic->vSetRoot(v_children.at(iChildOffset));
 		return pcTreeDynamic;
 	}
 
@@ -48,11 +51,11 @@ CTreeDynamic* CNodeDynamic::pcGetChild(int iChildOffset) {
 void CNodeDynamic::vMoveHelper(CNodeDynamic* pcNewParent) {
 	(pcNewParent->v_children).push_back(this);
 	if (pc_parent_node != NULL) {
-		std::vector<CNodeDynamic*> vCurrentParentChildren = pc_parent_node->v_children;
+		std::vector<CNodeDynamic*>* vCurrentParentChildren = &(pc_parent_node->v_children);
 
-			for (int ii = 0; ii < vCurrentParentChildren.size(); ii++) {
-				if (vCurrentParentChildren.at(ii) == this) {
-					vCurrentParentChildren.erase(vCurrentParentChildren.begin() + ii);
+			for (int ii = 0; ii < vCurrentParentChildren->size(); ii++) {
+				if (vCurrentParentChildren->at(ii) == this) {
+					vCurrentParentChildren->erase(vCurrentParentChildren->begin() + ii);
 				}
 			}
 	}
