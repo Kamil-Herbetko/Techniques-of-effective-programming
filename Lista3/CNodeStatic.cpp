@@ -15,7 +15,7 @@ void CNodeStatic::bRecursiveMove(CNodeStatic* pcDestinationParent) {
 	
 	pcDestinationParent->vAddNewChild();
 	std::vector<CNodeStatic>* vChildren = &(pcDestinationParent->v_children);
-	CNodeStatic* cNewNode = &(vChildren->at(vChildren->size() - 1));
+	CNodeStatic* cNewNode = &(vChildren->back());
 	cNewNode->i_val = i_val;
 
 	for (int ii = 0; ii < v_children.size(); ii++) {

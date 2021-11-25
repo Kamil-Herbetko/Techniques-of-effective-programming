@@ -20,7 +20,7 @@ public:
 	void vPrintUp();
 
 	void bRecursiveMove(CNodeStatic* pcDestinationParent);
-
+	
 	
 
 private:
