@@ -11,8 +11,7 @@ public:
 	void vPrintTree();
 
 	bool bMoveSubtree(CNodeStatic* pcParentNode, CNodeStatic* pcNewChildNode);
+	bool bNodesAreInTheSameTree(CNodeStatic* pcNode1, CNodeStatic* pcNode2);
 private:
 	CNodeStatic c_root;
 };
-
-void v_tree_move_test();

@@ -13,17 +13,14 @@ void CTreeStatic::vPrintTree() {
 }
 
 bool CTreeStatic::bMoveSubtree(CNodeStatic* pcParentNode, CNodeStatic* pcNewChildNode) {
-	if ((pcNewChildNode != NULL) && (pcParentNode != NULL)) {
+	if ((pcNewChildNode != NULL) && (pcParentNode != NULL) && (!bNodesAreInTheSameTree(pcParentNode, pcNewChildNode))) {
 
 		pcNewChildNode->bRecursiveMove(pcParentNode);	
 		CNodeStatic* pcNewChildParent = pcNewChildNode->pcGetParent();
-		if (pcNewChildParent == NULL) {
-			delete pcNewChildNode;
-		}
-
-		else {
+		if (pcNewChildParent != NULL) {
 			pcNewChildParent->bRemoveChild(pcNewChildNode);
 		}
+		
 
 		return true;
 			
@@ -34,46 +31,18 @@ bool CTreeStatic::bMoveSubtree(CNodeStatic* pcParentNode, CNodeStatic* pcNewChil
 	
 }
 
-void v_tree_move_test() {
-	CNodeStatic cRoot;
-	cRoot.vAddNewChild();
-	cRoot.vAddNewChild();
-	cRoot.pcGetChild(0)->vSetValue(1);
-	cRoot.pcGetChild(1)->vSetValue(2);
-	cRoot.pcGetChild(0)->vAddNewChild();
-	cRoot.pcGetChild(0)->vAddNewChild();
-	cRoot.pcGetChild(0)->pcGetChild(0)->vSetValue(11);
-	cRoot.pcGetChild(0)->pcGetChild(1)->vSetValue(12);
-	cRoot.pcGetChild(1)->vAddNewChild();
-	cRoot.pcGetChild(1)->vAddNewChild();
-	cRoot.pcGetChild(1)->pcGetChild(0)->vSetValue(21);
-	cRoot.pcGetChild(1)->pcGetChild(1)->vSetValue(22);
+bool CTreeStatic::bNodesAreInTheSameTree(CNodeStatic* pcNode1, CNodeStatic* pcNode2) {
+	CNodeStatic* pcRoot1 = pcNode1;
+	CNodeStatic* pcRoot2 = pcNode2;
 
-	cRoot.vPrintAllBelow();
-	std::cout << "\n";
+	while (pcRoot1->pcGetParent() != NULL) {
+		pcRoot1 = pcRoot1->pcGetParent();
+	}
 
-	CNodeStatic cRoot2;
-	cRoot2.vSetValue(4);
-	cRoot2.vAddNewChild();
-	cRoot2.vAddNewChild();
-	cRoot2.pcGetChild(0)->vSetValue(5);
-	cRoot2.pcGetChild(1)->vSetValue(6);
-	cRoot2.pcGetChild(0)->vAddNewChild();
-	cRoot2.pcGetChild(0)->vAddNewChild();
-	cRoot2.pcGetChild(0)->pcGetChild(0)->vSetValue(51);
-	cRoot2.pcGetChild(0)->pcGetChild(1)->vSetValue(52);
-	cRoot2.pcGetChild(1)->vAddNewChild();
-	cRoot2.pcGetChild(1)->vAddNewChild();
-	cRoot2.pcGetChild(1)->pcGetChild(0)->vSetValue(61);
-	cRoot2.pcGetChild(1)->pcGetChild(1)->vSetValue(62);
+	while (pcRoot2->pcGetParent() != NULL) {
+		pcRoot2 = pcRoot2->pcGetParent();
+	}
 
-	cRoot2.vPrintAllBelow();
-	std::cout << "\n";
+	return pcRoot1 == pcRoot2;
 
-	CTreeStatic cTree;
-	cTree.bMoveSubtree(cRoot.pcGetChild(0)->pcGetChild(1), cRoot2.pcGetChild(1));
-
-	cRoot.vPrintAllBelow();
-	std::cout << "\n";
-	cRoot2.vPrintAllBelow();
 }
