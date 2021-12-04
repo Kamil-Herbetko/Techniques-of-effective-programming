@@ -1,5 +1,5 @@
-#include "CTreeDynamic.h"
 
+/*
 CTreeDynamic::CTreeDynamic() {
 	pc_root = new CNodeDynamic();
 }
@@ -157,3 +157,4 @@ void CNodeDynamic::vPrintAllBelow() {
 		v_children.at(ii)->vPrintAllBelow();
 	}
 }
+*/
