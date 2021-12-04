@@ -1,4 +1,3 @@
-#include "CTreeStatic.h"
 #include "CTreeDynamic.h"
 
 int main() {
@@ -53,7 +52,8 @@ int main() {
 
 	std::cout << "\n";
 	*/
-	CNodeDynamic cRoot;
+	CNodeDynamic<int> cRoot;
+	cRoot.vSetValue(0);
 	cRoot.vAddNewChild();
 	cRoot.vAddNewChild();
 	cRoot.pcGetChild(0)->pcGetRoot()->vSetValue(1);
@@ -67,10 +67,11 @@ int main() {
 	cRoot.pcGetChild(1)->pcGetRoot()->pcGetChild(0)->pcGetRoot()->vSetValue(21);
 	cRoot.pcGetChild(1)->pcGetRoot()->pcGetChild(1)->pcGetRoot()->vSetValue(22);
 
-	//cRoot.vPrintAllBelow();
-	//std::cout << "\n";
+	cRoot.vPrintAllBelow();
+	std::cout << "\n";
 
-	CNodeDynamic cRoot2;
+	CNodeDynamic<int> cRoot2;
+	cRoot2.vSetValue(50);
 	cRoot2.vAddNewChild();
 	cRoot2.vAddNewChild();
 	cRoot2.pcGetChild(0)->pcGetRoot()->vSetValue(5);
@@ -87,10 +88,10 @@ int main() {
 	
 	cRoot.vPrintBreadth();
 	
-	/* cRoot2.vPrintAllBelow();
+	cRoot2.vPrintAllBelow();
 	std::cout << "\n";
 
-	CTreeDynamic cTree;
+	CTreeDynamic<int> cTree;
 	cTree.bMoveSubtree(cRoot.pcGetChild(0)->pcGetRoot()->pcGetChild(1)->pcGetRoot(), cRoot2.pcGetChild(0)->pcGetRoot());
 
 	cRoot.vPrintAllBelow();
@@ -98,6 +99,9 @@ int main() {
 
 	cRoot2.vPrintAllBelow();
 	std::cout << "\n";
-	*/
+
+	cRoot.vPrintBreadth();
+	cRoot2.vPrintBreadth();
+	
 	return 0;
 }
