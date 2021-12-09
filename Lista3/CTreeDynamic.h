@@ -24,7 +24,7 @@ public:
 	CNodeDynamic<T>* pcGetParent() { return pc_parent_node; };
 
 	
-	void vPrint() { std::cout << " " << *pt_val; };
+	void vPrint() { if (pt_val != NULL) { std::cout << " " << *pt_val; } };
 	void vPrintBreadth();
 	void vPrintAllBelow();
 private:
@@ -41,8 +41,6 @@ public:
 	~CTreeDynamic();
 
 	CNodeDynamic<T>* pcGetRoot() { return(pc_root); }
-	bool bMoveSubtree(CNodeDynamic<T>* pcParentNode, CNodeDynamic<T>* pcNewChildNode);
-	bool bNodesAreInTheSameTree(CNodeDynamic<T>* pcNode1, CNodeDynamic<T>* pcNode2);
 
 	void vSetRoot(CNodeDynamic<T>* pcNewRootNode);
 
@@ -51,6 +49,8 @@ public:
 private:
 	CNodeDynamic<T>* pc_root;
 };
+
+
 
 template <typename T>
 CTreeDynamic<T>::CTreeDynamic() {
@@ -63,7 +63,7 @@ CTreeDynamic<T>::~CTreeDynamic() {
 }
 
 template <typename T>
-bool CTreeDynamic<T>::bMoveSubtree(CNodeDynamic<T>* pcParentNode, CNodeDynamic<T>* pcNewChildNode)
+bool bMoveSubtree(CNodeDynamic<T>* pcParentNode, CNodeDynamic<T>* pcNewChildNode)
 {
 	if ((pcParentNode != NULL) && (pcNewChildNode != NULL) && (!bNodesAreInTheSameTree(pcParentNode, pcNewChildNode))) {
 		pcNewChildNode->vMoveHelper(pcParentNode);
@@ -74,7 +74,7 @@ bool CTreeDynamic<T>::bMoveSubtree(CNodeDynamic<T>* pcParentNode, CNodeDynamic<T
 }
 
 template <typename T>
-bool CTreeDynamic<T>::bNodesAreInTheSameTree(CNodeDynamic<T>* pcNode1, CNodeDynamic<T>* pcNode2) {
+bool bNodesAreInTheSameTree(CNodeDynamic<T>* pcNode1, CNodeDynamic<T>* pcNode2) {
 	CNodeDynamic<T>* pcRoot1 = pcNode1;
 	CNodeDynamic<T>* pcRoot2 = pcNode2;
 
@@ -105,6 +105,8 @@ CNodeDynamic<T>::~CNodeDynamic() {
 	for (int ii = 0; ii < v_children.size(); ii++) {
 		delete v_children[ii];
 	}
+
+	delete [] pt_val;
 }
 
 template <typename T>
