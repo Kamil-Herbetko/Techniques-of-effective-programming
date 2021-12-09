@@ -91,8 +91,7 @@ int main() {
 	cRoot2.vPrintAllBelow();
 	std::cout << "\n";
 
-	CTreeDynamic<int> cTree;
-	cTree.bMoveSubtree(cRoot.pcGetChild(0)->pcGetRoot()->pcGetChild(1)->pcGetRoot(), cRoot2.pcGetChild(0)->pcGetRoot());
+	bMoveSubtree(cRoot.pcGetChild(0)->pcGetRoot()->pcGetChild(1)->pcGetRoot(), cRoot2.pcGetChild(0)->pcGetRoot());
 
 	cRoot.vPrintAllBelow();
 	std::cout << "\n";
@@ -102,6 +101,25 @@ int main() {
 
 	cRoot.vPrintBreadth();
 	cRoot2.vPrintBreadth();
+
+	std::cout << "\n";
+
+	CNodeDynamic<double*> cRoot3;
+	cRoot3.vSetValue(1.0);
+	cRoot3.vAddNewChild();
+	cRoot3.vAddNewChild();
+	cRoot3.pcGetChild(0)->pcGetRoot()->vSetValue(5.1);
+	cRoot3.pcGetChild(1)->pcGetRoot()->vSetValue(6.2);
+	cRoot3.pcGetChild(0)->pcGetRoot()->vAddNewChild();
+	cRoot3.pcGetChild(0)->pcGetRoot()->vAddNewChild();
+	cRoot3.pcGetChild(0)->pcGetRoot()->pcGetChild(0)->pcGetRoot()->vSetValue(51.1);
+	cRoot3.pcGetChild(0)->pcGetRoot()->pcGetChild(1)->pcGetRoot()->vSetValue(52.2);
+	cRoot3.pcGetChild(1)->pcGetRoot()->vAddNewChild();
+	cRoot3.pcGetChild(1)->pcGetRoot()->vAddNewChild();
+	cRoot3.pcGetChild(1)->pcGetRoot()->pcGetChild(0)->pcGetRoot()->vSetValue(61.1);
+	cRoot3.pcGetChild(1)->pcGetRoot()->pcGetChild(1)->pcGetRoot()->vSetValue(62.2);
+	
+	cRoot3.vPrintAllBelow();
 	
 	return 0;
 }
