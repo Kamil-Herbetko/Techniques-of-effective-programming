@@ -14,6 +14,8 @@ public:
 	void vAddNewChild();
 	CTreeDynamic<T>* pcGetChild(int iChildOffset);
 	void vUpdateDepthAndLevel();
+	
+	T tSum();
 
 	void vUpdateLevel();
 
@@ -43,6 +45,8 @@ public:
 	CNodeDynamic<T>* pcGetRoot() { return(pc_root); }
 
 	void vSetRoot(CNodeDynamic<T>* pcNewRootNode);
+
+	T* tSum();
 
 	void vPrintBreadth() { pc_root->vPrintBreadth(); };
 	void vPrintTree();
@@ -98,6 +102,25 @@ void CTreeDynamic<T>::vSetRoot(CNodeDynamic<T>* pcNewRootNode) {
 template <typename T>
 void CTreeDynamic<T>::vPrintTree() {
 	pc_root->vPrintAllBelow();
+}
+
+template <typename T>
+T* CTreeDynamic<T>::tSum() {
+	return NULL;
+}
+
+template <>
+int* CTreeDynamic<int>::tSum() {
+	int* piSum = new int;
+	*piSum = pc_root->tSum();
+	return piSum;
+}
+
+template <>
+double* CTreeDynamic<double>::tSum() {
+	double* piSum = new double;
+	*piSum = pc_root->tSum();
+	return piSum;
 }
 
 template <typename T>
@@ -224,4 +247,33 @@ void CNodeDynamic<T>::vPrintAllBelow() {
 	for (int ii = 0; ii < v_children.size(); ii++) {
 		v_children.at(ii)->vPrintAllBelow();
 	}
+}
+
+//template <typename T>
+//T CNodeDynamic<T>::tSum() {
+//	return NULL;
+//}
+
+template <>
+int CNodeDynamic<int>::tSum() {
+	int sum = 0;
+	sum = *pt_val;
+
+	for (int ii = 0; ii < v_children.size(); ii++) {
+		sum = sum + (v_children.at(ii)->tSum());
+	}
+
+	return sum;
+}
+
+template <>
+double CNodeDynamic<double>::tSum() {
+	double sum = 0.0;
+	sum = *pt_val;
+
+	for (int ii = 0; ii < v_children.size(); ii++) {
+		sum = sum + (v_children.at(ii)->tSum());
+	}
+
+	return sum;
 }
