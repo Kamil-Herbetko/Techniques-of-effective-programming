@@ -22,15 +22,17 @@ public:
     void vSetValueAt(int iOffset, int iNewVal);
     CTable* pcClone();
 
-    void operator=(const CTable& pcOther);
-    CTable operator+(CTable& pcOther);
-    void operator++(int);
+    CTable operator=(const CTable& cOther);
+    CTable operator=(CTable&& cOther) noexcept;
+    CTable operator+(CTable& cOther);
+    CTable operator++(int);
 
 private:
     std::string s_name;
     int i_TableLen;
     int* pi_Table;
-
+    void v_copy(const CTable& cOther);
+    void v_move(CTable& cOther)
 };
 
 void v_mod_tab(CTable* pcTab, int iNewSize);
