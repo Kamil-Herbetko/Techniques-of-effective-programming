@@ -23,7 +23,7 @@ CTab CTab::operator=(const CTab& cOther)
 
 CTab CTab::operator=(CTab&& cOther) noexcept{
 	if (pi_tab != NULL) delete pi_tab;
-	v_copy(cOther);
+	v_move(cOther);
 	return(*this);
 }
 
