@@ -11,6 +11,7 @@ public:
     CTable(CTable& pcOther);
     CTable(std::string sName, int iTableLen);
     ~CTable();
+    CTable(CTable&& pcOther) noexcept;
 
     std::string sGetName();
     int iGetTableLen();
@@ -22,17 +23,15 @@ public:
     void vSetValueAt(int iOffset, int iNewVal);
     CTable* pcClone();
 
-    CTable operator=(const CTable& cOther);
-    CTable operator=(CTable&& cOther) noexcept;
-    CTable operator+(CTable& cOther);
+    CTable operator=(CTable cOther);
+    CTable operator+(CTable cOther);
     CTable operator++(int);
+    friend void swap(CTable& cFirst, CTable& cSecond) noexcept;
 
 private:
     std::string s_name;
     int i_TableLen;
     int* pi_Table;
-    void v_copy(const CTable& cOther);
-    void v_move(CTable& cOther)
 };
 
 void v_mod_tab(CTable* pcTab, int iNewSize);

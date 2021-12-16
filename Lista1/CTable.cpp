@@ -62,8 +62,13 @@ CTable* CTable::pcClone() {
 
 
 CTable::~CTable() {
-    delete[] pi_Table;
+    delete [] pi_Table;
     std::cout << "usuwam: " << s_name << std::endl;
+}
+
+CTable::CTable(CTable&& pcOther) noexcept : CTable() {
+    swap(*this, pcOther);
+    std::cout << "MOVED" << std::endl;
 }
 
 
@@ -79,15 +84,12 @@ int* CTable::piGetTable() {
     return pi_Table;
 }
 
-void CTable::operator=(const CTable& pcOther) {
-    delete[] pi_Table;
-    s_name = pcOther.s_name;
-    i_TableLen = pcOther.i_TableLen;
-    pi_Table = new int[i_TableLen];
-    memcpy(pi_Table, pcOther.pi_Table, i_TableLen * sizeof(int));
+CTable CTable::operator=(CTable pcOther) {
+    swap(*this, pcOther);
+    return *this;
 }
 
-CTable CTable::operator+(CTable& pcOther) {
+CTable CTable::operator+(CTable pcOther) {
 
     CTable cTableConcat(s_name + "+" + pcOther.s_name, i_TableLen + pcOther.i_TableLen);
     memcpy(cTableConcat.pi_Table, pi_Table, i_TableLen * sizeof(int));
@@ -95,9 +97,18 @@ CTable CTable::operator+(CTable& pcOther) {
     return cTableConcat;
 }
 
-void CTable::operator++(int) {
+CTable CTable::operator++(int) {
     bSetNewSize(i_TableLen + 1);
     vSetValueAt(i_TableLen - 1, PP_ADDED_VALUE);
+    return *this;
+}
+
+void swap(CTable& cFirst, CTable& cSecond) noexcept{
+    using std::swap;
+
+    swap(cFirst.s_name, cSecond.s_name);
+    swap(cFirst.i_TableLen, cSecond.i_TableLen);
+    swap(cFirst.pi_Table, cSecond.pi_Table);
 }
 
 void v_mod_tab(CTable* pcTab, int iNewSize) {
