@@ -8,7 +8,7 @@
 class CTable {
 public:
     CTable();
-    CTable(CTable& pcOther);
+    CTable(const CTable& pcOther);
     CTable(std::string sName, int iTableLen);
     ~CTable();
     CTable(CTable&& pcOther) noexcept;
@@ -24,7 +24,7 @@ public:
     CTable* pcClone();
 
     CTable operator=(CTable cOther);
-    CTable operator+(CTable cOther);
+    CTable operator+(CTable& cOther);
     CTable operator++(int);
     friend void swap(CTable& cFirst, CTable& cSecond) noexcept;
 

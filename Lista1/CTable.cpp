@@ -1,6 +1,6 @@
 #include "CTable.h"
 
-CTable::CTable(CTable& pcOther) {
+CTable::CTable(const CTable& pcOther) {
     s_name = pcOther.s_name + COPY_STRING;
     i_TableLen = pcOther.i_TableLen;
     pi_Table = new int[i_TableLen];
@@ -62,7 +62,9 @@ CTable* CTable::pcClone() {
 
 
 CTable::~CTable() {
-    delete [] pi_Table;
+    if (pi_Table != NULL) {
+        delete[] pi_Table;
+    }
     std::cout << "usuwam: " << s_name << std::endl;
 }
 
@@ -89,7 +91,7 @@ CTable CTable::operator=(CTable pcOther) {
     return *this;
 }
 
-CTable CTable::operator+(CTable pcOther) {
+CTable CTable::operator+(CTable& pcOther) {
 
     CTable cTableConcat(s_name + "+" + pcOther.s_name, i_TableLen + pcOther.i_TableLen);
     memcpy(cTableConcat.pi_Table, pi_Table, i_TableLen * sizeof(int));
