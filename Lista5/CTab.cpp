@@ -1,33 +1,32 @@
 #include "CTab.h"
 #include <iostream>
 
-CTab::CTab(const CTab& cOther)
-{
+CTab::CTab(const CTab& cOther) {
 	v_copy(cOther);
 	std::cout << "Copy ";
 }
 
-CTab::~CTab()
-{
+CTab::~CTab() {
 	if (pi_tab != NULL) delete pi_tab;
 	std::cout << "Destr ";
 }
 
-CTab CTab::operator=(const CTab& cOther)
-{
+CTab CTab::operator=(const CTab& cOther) {
 	if (pi_tab != NULL) delete pi_tab;
 	v_copy(cOther);
 	std::cout << "op= ";
-	return(*this);
+	return *this;
 }
 
 CTab CTab::operator=(CTab&& cOther) noexcept{
+	if (&cOther == this) return *this;
 	if (pi_tab != NULL) delete pi_tab;
+
 	v_move(cOther);
-	return(*this);
+	return *this;
 }
 
-bool CTab::bSetSize(int iNewSize){
+bool CTab::bSetSize(int iNewSize) {
 	if (iNewSize < 0) {
 		return false;
 	}
@@ -42,18 +41,19 @@ bool CTab::bSetSize(int iNewSize){
 	return true;
 }
 
-void CTab::v_copy(const CTab& cOther)
-{
+void CTab::v_copy(const CTab& cOther) {
 	pi_tab = new int[cOther.i_size];
 	i_size = cOther.i_size;
+
 	for (int ii = 0; ii < cOther.i_size; ii++)
 		pi_tab[ii] = cOther.pi_tab[ii];
 }
 
-void CTab::v_move(CTab& cOther){
+void CTab::v_move(CTab& cOther) {
 	pi_tab = cOther.pi_tab;
 	i_size = cOther.i_size;
 	cOther.pi_tab = NULL;
+	cOther.i_size = 0;
 }
 
 CTab::CTab(CTab&& cOther) noexcept {
